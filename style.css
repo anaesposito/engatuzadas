@@ -45,13 +45,6 @@ body {
   border: 3px solid white;
   border-radius: 40px;
 }
-#modal-bienvenida {
-  position: absolute;
-  z-index: 11111;
-}
-#modal-tarjeta {
-  width: 500px;
-}
 
 #texto {
   margin: 0 25px 0 25px;
@@ -67,25 +60,6 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-}
-
-#modal-controles h2 {
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-#boton-jugar {
-  background-color: #d81b60;
-  margin-left: 350px;
-}
-
-.boton-dificultad {
-  background-color: #d81b60 !important;
-}
-
-#modal-card-foot {
-  justify-content: center;
 }
 
 /* -------------------------------- FIN MODALES */
@@ -112,18 +86,6 @@ body {
 /* -------------------- FIN GATITO CLICKEABLE------------------ */
 .ocultar {
   display: none;
-}
-
-/* ------------------------------------ TAMANIOS DE DIVS E IMG SEGUN DIFICULTAD */
-
-.div-modo-normal {
-  height: 59px;
-  width: 59px;
-}
-
-.img-modo-normal {
-  height: 45px;
-  width: 45px;
 }
 
 /* ------------------------------------------ nueva estructura */

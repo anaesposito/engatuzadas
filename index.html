@@ -54,7 +54,7 @@
 
 
     <div id="contenedor-modal-bienvenida">
-        <div id="modal-bienvenida" class="modal is-active">
+        <div id="modal-bienvenida" class="modal is-flex-mobile is-active">
             <div class="modal-background"></div>
             <div id="modal-tarjeta" class="modal-card">
                 <header class="modal-card-head">
@@ -80,7 +80,7 @@
                     <p>Flechas o WASD: movimiento e intercambio</p>
 
                 </section>
-                <footer class="modal-card-foot">
+                <footer class="modal-card-foot is-justify-content-center">
                     <button id="boton-jugar" class="button is-danger">A Jugar</button>
                 </footer>
             </div>
@@ -88,16 +88,18 @@
     </div>
     <!----------------------------------------------------- Inicio Modal Dificultades -->
 
-    <div id="modal-dificultades" class="modal-dificultad modal is-hidden">
-        <div class="modal-background">
+    <div id="contenedor-modal-dificultades">
+        <div id="modal-dificultades" class="modal is-flex-mobile is-hidden">
+            <div class="modal-background"></div>
             <div id="modal-tarjeta" class="modal-card">
                 <header class="modal-card-head">
                     <h1 class="modal-card-title">Nuevo Juego</h1>
 
                 </header>
-                <section id="texto-dificultad" class="modal-card-body">
+                <section id="modal-texto" class="modal-card-body">
                     <p>Selecciona la dificultad</p>
                 </section>
+
                 <footer class="modal-card-foot is-justify-content-center">
                     <div id="contenedor-boton-facil"><button id="facil"
                             class="boton-dificultad button is-danger ml-4">Fácil</button></div>
@@ -109,6 +111,7 @@
             </div>
         </div>
     </div>
+
 
 
     <!-- -----------------------------Inicio Modal Juego terminado -->
