@@ -1,0 +1,178 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(img/Fondo-Arco-Iris.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  /* align-items: center; */
+  /* background-position-y: 50%; */
+  padding: 0 10px;
+}
+
+.grilla {
+  position: relative;
+  display: flex;
+  align-content: center;
+  left: 10px;
+  top: 10px;
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.contenedor-gatito {
+  width: 80px;
+  height: 80px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  /* background-color: #ff5cb849; */
+}
+
+.contenedor-grilla {
+  padding: 10px;
+  left: 100px;
+  border-radius: 20px;
+  max-width: 500px;
+  max-height: 500px;
+  margin-top: 40px;
+  position: relative;
+  background-color: #d81b60;
+  border: 3px solid white;
+  border-radius: 40px;
+}
+#modal-bienvenida {
+  position: absolute;
+  z-index: 11111;
+}
+#modal-tarjeta {
+  width: 500px;
+}
+
+#texto {
+  margin: 0 25px 0 25px;
+}
+
+#modal-texto {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#modal-controles {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#modal-controles h2 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+#boton-jugar {
+  background-color: #d81b60;
+  margin-left: 350px;
+}
+
+.boton-dificultad {
+  background-color: #d81b60 !important;
+}
+
+#modal-card-foot {
+  justify-content: center;
+}
+
+/* -------------------------------- FIN MODALES */
+
+.seleccionado {
+  border: solid 2px white;
+  border-radius: 14px;
+}
+
+/* -------------------- INICIO GATITO CLICKEABLE------------------ */
+.imagen-gatito {
+  width: 90%;
+  animation-iteration-count: 1;
+}
+.clickeable {
+  animation-name: clickeable;
+  animation-duration: 1s;
+}
+@keyframes clickeable {
+  20% {
+    transform: scale(0.5);
+  }
+}
+/* -------------------- FIN GATITO CLICKEABLE------------------ */
+.ocultar {
+  display: none;
+}
+
+/* ------------------------------------ TAMANIOS DE DIVS E IMG SEGUN DIFICULTAD */
+
+.div-modo-normal {
+  height: 59px;
+  width: 59px;
+}
+
+.img-modo-normal {
+  height: 45px;
+  width: 45px;
+}
+
+/* ------------------------------------------ nueva estructura */
+.titulo-engatuzadas {
+  font-family: pacifico;
+  font-size: 70px;
+  color: #d81b60;
+  text-shadow: 1px 1px #fafafa, 1px -1px #fafafa, -1px -1px #fafafa,
+    -1px 1px #fafafa;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.seccion-juego {
+  width: 100%;
+  display: flex;
+  align-content: center;
+}
+
+.contenedor-combos-puntaje,
+.seccion-timer {
+  background-color: #d81b60;
+  border: 3px solid white;
+  padding: 10px;
+  border-radius: 20px;
+  width: 700px;
+  margin-top: 40px;
+
+  margin-bottom: 40px;
+
+  margin: auto;
+}
+.combos-puntaje {
+  display: flex;
+  align-items: center;
+  margin: 3px;
+  justify-content: space-between;
+}
+.combos-puntaje {
+  padding: 5px;
+  color: black;
+}
+.puntos,
+.combo {
+  font-family: pacifico;
+  text-shadow: 1px 1px #000000, 1px -1px #000000, -1px -1px #000000,
+    -1px 1px #000000;
+  font-size: larger;
+  font-weight: bold;
+  color: white;
+}
