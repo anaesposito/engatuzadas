@@ -10,6 +10,7 @@ const contenedorBotonDificil = document.getElementById(
   "contenedor-boton-dificil"
 );
 const cerrarJuegoTerminado = document.querySelector("#cerrar-juego-terminado");
+const informacion = document.querySelector("#informacion");
 
 const modalDificultad = document.querySelector("#modal-dificultades");
 
@@ -243,6 +244,11 @@ const intercambiarCuadrados = (cuadrado1, cuadrado2) => {
   const datax2 = Number(cuadrado2.dataset.x);
   const datay1 = Number(cuadrado1.dataset.y);
   const datay2 = Number(cuadrado2.dataset.y);
+  const dataid1 = Number(cuadrado1.dataset.id);
+  const dataid2 = Number(cuadrado2.dataset.id);
+
+  // cuadrado1.classList.toggle("gatito-en-transito-de-posicion");
+  // cuadrado2.classList.toggle("gatito-en-transito-de-posicion");
 
   let variableTemporal = listaDeGatitos[datax1][datay1];
   listaDeGatitos[datax1][datay1] = listaDeGatitos[datax2][datay2];
@@ -258,6 +264,11 @@ const intercambiarCuadrados = (cuadrado1, cuadrado2) => {
   cuadrado2.dataset.x = datax1;
   cuadrado1.dataset.y = datay2;
   cuadrado2.dataset.y = datay1;
+  cuadrado1.dataset.id = dataid2;
+  cuadrado2.dataset.id = dataid1;
+
+  // cuadrado1.classList.remove("gatito-en-transito-de-posicion");
+  // cuadrado2.classList.remove("gatito-en-transito-de-posicion");
 };
 // ---------------------------FIN INTERCAMBIAR CUADRADOS
 // ---------------------------Inicio Escuchar Clicks-----------
@@ -418,6 +429,9 @@ const ocultarDificultades = () => {
   modalDificultad.classList.add("is-hidden");
   modalDificultad.classList.remove("is-active");
 };
+informacion.onclick = () => {
+  modalBienvenida.classList.remove("ocultar");
+};
 
 AJugar.onclick = () => {
   ocultarBienvenida();
@@ -438,6 +452,7 @@ const compararHorizontalEnBoton = (celdaActual, i, j, maximoIndice) => {
       celdaActual === celdaHorizontalMasUno && // busco tres iguales consecutivos
       celdaActual === celdaHorizontalMasDos
     ) {
+      // console.log("celda actual", listaDeGatitos[i][j].parentElement);
       matchesHorizontales.push([i, j]);
       matchesHorizontales.push([i, j + 1]);
       matchesHorizontales.push([i, j + 2]);
@@ -458,7 +473,14 @@ const compararVerticalEnBoton = (celdaActual, i, j, maximoIndice) => {
       matchesVerticales.push([i, j]);
       matchesVerticales.push([i + 1, j]);
       matchesVerticales.push([i + 2, j]);
+      // celdaActual.src = "";
+      // celdaVerticalMasUno = "";
+      // celdaHorizontalMasDos = "";
     }
+    // console.log(celdaVerticalMasUno);
+    // else if  (celdaActual.firstChild === null) {
+    //   console.log("celda sin imagen no pushear");
+    // }
   }
 };
 
@@ -468,8 +490,8 @@ const compararVerticalEnBoton = (celdaActual, i, j, maximoIndice) => {
  */
 const buscarMatches = (dimension) => {
   let maximoIndice = dimension - 1;
-  let comparacionesHorizontales = [];
-  let comparacionesVerticales = [];
+  // let comparacionesHorizontales = [];
+  // let comparacionesVerticales = [];
 
   for (let i = 0; i < listaDeGatitos.length; i++) {
     for (let j = 0; j < listaDeGatitos[i].length; j++) {
@@ -527,8 +549,6 @@ const removerImagenCelda = (listaCoordenaMatches) => {
       intercambiarCuadrados(divMatcheado, divDeArriba);
       xDivDeArriba -= 1;
     }
-    console.log(divMatcheado);
-    divMatcheado = "";
   }
 };
 /**
@@ -538,12 +558,14 @@ const removerImagenCelda = (listaCoordenaMatches) => {
 const borrarMatches = () => {
   let listaMatchesUnicos = manejarIntersecciones();
   removerImagenCelda(listaMatchesUnicos);
-
+  matchesHorizontales = [];
+  matchesVerticales = [];
+  // console.log(matchesHorizontales, matchesVerticales);
   // if (!matchesHorizontales.length && !matchesVerticales.length) {
   //   alert("No hay matches :(");
   // }
-  matchesHorizontales = [];
-  matchesVerticales = [];
+  // matchesHorizontales = [];
+  // matchesVerticales = [];
 };
 
 const botonProbandoVacios = document.querySelector("#boton-vacios");
@@ -597,8 +619,12 @@ const agregarNuevaImagen = () => {
 
   for (let div of todosLosDivs) {
     if (div.firstChild === null) {
-      console.log("div vacio", div.firstChild === null);
-      div.appendChild(obtenerImgGatito());
+      // console.log("div vacio", div.firstChild === null);
+      // div.appendChild(obtenerImgGatito());
+      // console.log(div);
+      const gatito = obtenerImgGatito();
+      div.appendChild(gatito);
+      listaDeGatitos[div.dataset.x][div.dataset.y] = gatito;
     }
   }
 };

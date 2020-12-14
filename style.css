@@ -138,3 +138,18 @@ body {
   font-weight: bold;
   color: white;
 }
+
+/* -------------------EFECTO PARA TRANSICION EN CAMBIO DE POSICIONES */
+.gatito-en-transito-de-posicion {
+  margin: 50px auto;
+  position: fixed;
+
+  animation-name: fade;
+  animation-duration: 3s;
+}
+
+@keyframes fade {
+  50% {
+    left: 60%;
+  }
+}
