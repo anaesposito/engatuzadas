@@ -247,9 +247,6 @@ const intercambiarCuadrados = (cuadrado1, cuadrado2) => {
   const dataid1 = Number(cuadrado1.dataset.id);
   const dataid2 = Number(cuadrado2.dataset.id);
 
-  // cuadrado1.classList.toggle("gatito-en-transito-de-posicion");
-  // cuadrado2.classList.toggle("gatito-en-transito-de-posicion");
-
   let variableTemporal = listaDeGatitos[datax1][datay1];
   listaDeGatitos[datax1][datay1] = listaDeGatitos[datax2][datay2];
   listaDeGatitos[datax2][datay2] = variableTemporal;
@@ -266,9 +263,6 @@ const intercambiarCuadrados = (cuadrado1, cuadrado2) => {
   cuadrado2.dataset.y = datay1;
   cuadrado1.dataset.id = dataid2;
   cuadrado2.dataset.id = dataid1;
-
-  // cuadrado1.classList.remove("gatito-en-transito-de-posicion");
-  // cuadrado2.classList.remove("gatito-en-transito-de-posicion");
 };
 // ---------------------------FIN INTERCAMBIAR CUADRADOS
 // ---------------------------Inicio Escuchar Clicks-----------
@@ -473,14 +467,7 @@ const compararVerticalEnBoton = (celdaActual, i, j, maximoIndice) => {
       matchesVerticales.push([i, j]);
       matchesVerticales.push([i + 1, j]);
       matchesVerticales.push([i + 2, j]);
-      // celdaActual.src = "";
-      // celdaVerticalMasUno = "";
-      // celdaHorizontalMasDos = "";
     }
-    // console.log(celdaVerticalMasUno);
-    // else if  (celdaActual.firstChild === null) {
-    //   console.log("celda sin imagen no pushear");
-    // }
   }
 };
 
@@ -490,8 +477,6 @@ const compararVerticalEnBoton = (celdaActual, i, j, maximoIndice) => {
  */
 const buscarMatches = (dimension) => {
   let maximoIndice = dimension - 1;
-  // let comparacionesHorizontales = [];
-  // let comparacionesVerticales = [];
 
   for (let i = 0; i < listaDeGatitos.length; i++) {
     for (let j = 0; j < listaDeGatitos[i].length; j++) {
@@ -519,6 +504,8 @@ const manejarIntersecciones = () => {
 
     if (!repetidos.includes(valorUnico)) {
       repetidos.push(valorUnico);
+      console.log("array repetidos", repetidos);
+      console.log("valor unico", valorUnico);
       return true;
     } else {
       return false;
@@ -558,14 +545,16 @@ const removerImagenCelda = (listaCoordenaMatches) => {
 const borrarMatches = () => {
   let listaMatchesUnicos = manejarIntersecciones();
   removerImagenCelda(listaMatchesUnicos);
+
+  borrarImgDeListaDeGatitos(listaMatchesUnicos);
   matchesHorizontales = [];
   matchesVerticales = [];
-  // console.log(matchesHorizontales, matchesVerticales);
-  // if (!matchesHorizontales.length && !matchesVerticales.length) {
-  //   alert("No hay matches :(");
-  // }
-  // matchesHorizontales = [];
-  // matchesVerticales = [];
+};
+
+const borrarImgDeListaDeGatitos = (listaMatchesUnicos) => {
+  for (let i = 0; i < listaMatchesUnicos.length; i++) {
+    listaDeGatitos[listaMatchesUnicos[i][0][listaMatchesUnicos[i][1]]] = null;
+  }
 };
 
 const botonProbandoVacios = document.querySelector("#boton-vacios");

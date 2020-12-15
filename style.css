@@ -30,6 +30,8 @@ body {
   justify-content: center;
   align-items: center;
   position: absolute;
+  transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s,
+    right 0.4s, transform 0.2s;
   /* background-color: #ff5cb849; */
 }
 
@@ -137,19 +139,4 @@ body {
   font-size: larger;
   font-weight: bold;
   color: white;
-}
-
-/* -------------------EFECTO PARA TRANSICION EN CAMBIO DE POSICIONES */
-.gatito-en-transito-de-posicion {
-  margin: 50px auto;
-  position: fixed;
-
-  animation-name: fade;
-  animation-duration: 3s;
-}
-
-@keyframes fade {
-  50% {
-    left: 60%;
-  }
 }
