@@ -17,9 +17,11 @@
 
 <body>
 
-    <!-- <button id="nuevo-juego">Nuevo Juego</button> -->
+    <div class="background">
 
-    <!-- <button id="facil" class="ocultar">Facil</button>
+        <!-- <button id="nuevo-juego">Nuevo Juego</button> -->
+
+        <!-- <button id="facil" class="ocultar">Facil</button>
     <button id="medio" class="ocultar">Medio</button>
     <button id="dificil" class="ocultar">Dificil</button> -->
 
@@ -29,9 +31,9 @@
 
 
 
-    <!-- INICIO MODAL BIENVENIDA -->
+        <!-- INICIO MODAL BIENVENIDA -->
 
-    <!-- <div class="modal-bienvenida">
+        <!-- <div class="modal-bienvenida">
         <h1>¡Bienvenida!</h1>
         <div class="modal-texto">
             <p>En MatcheADAs tu objetivo es juntar tres o más ítems del mismo tipo, ya sea en fila o columna. Para eso,
@@ -49,130 +51,122 @@
             <button>A Jugar</button>
         </div>
     </div> -->
-    <!-- -------------------------------------Inicio Modal Bienvenida -->
+        <!-- -------------------------------------Inicio Modal Bienvenida -->
 
 
 
-    <div id="contenedor-modal-bienvenida">
-        <div id="modal-bienvenida" class="modal is-flex-mobile is-active">
+        <div id="contenedor-modal-bienvenida">
+            <div id="modal-bienvenida" class="modal is-mobile is-active">
+                <div class="modal-background"></div>
+                <div id="modal-tarjeta" class="modal-card">
+                    <header class="modal-card-head">
+                        <h1 class="modal-card-title">¡Bienvenidas!</h1>
+
+                    </header>
+                    <section id="modal-texto" class="modal-card-body">
+                        <div class="container">
+                            <p id="texto">En MatcheADAs tu objetivo es juntar tres o más ítems del mismo tipo, ya sea en
+                                fila o
+                                columna. Para
+                                eso,
+                                selecciona un ítem y a continuacion un ítem adyacente para intercambiarlos de lugar.
+                            </p>
+                            <p id="texto">Si se forma un grupo, esos ítems se eliminarán y ganarás puntos. ¡Sigue
+                                armando
+                                grupos
+                                de
+                                3 o más
+                                antes
+                                de que se acabe el tiempo! </p>
+
+                        </div>
+                        <div class="container">
+                            <p>Click izquierdo: seleccion</p>
+                            <p>Enter o Espacio: seleccion</p>
+                            <p>Flechas o WASD: movimiento e intercambio</p>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot is-justify-content-center">
+                        <button id="boton-jugar" class="button is-danger">A Jugar</button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+        <!----------------------------------------------------- Inicio Modal Dificultades -->
+
+        <div id="contenedor-modal-dificultades">
+            <div id="modal-dificultades" class="modal is-mobile is-hidden">
+                <div class="modal-background"></div>
+                <div id="modal-tarjeta" class="modal-card">
+                    <header class="modal-card-head">
+                        <h1 class="modal-card-title">Nuevo Juego</h1>
+
+                    </header>
+                    <section id="modal-texto" class="modal-card-body">
+                        <p>Selecciona la dificultad</p>
+                    </section>
+
+                    <footer class="modal-card-foot is-justify-content-center">
+                        <div id="contenedor-boton-facil"><button id="facil"
+                                class="boton-dificultad button is-danger ml-4">Fácil</button></div>
+                        <div id="contenedor-boton-medio is-danger"> <button id="medio"
+                                class="boton-dificultad button is-danger ml-4">Medio</button></div>
+                        <div id="contenedor-boton-dicil"><button id="dificil"
+                                class="boton-dificultad button is-danger ml-4">Difícil</button></div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- -----------------------------Inicio Modal Juego terminado -->
+        <div class="modal-juegoTerminado modal is-danger">
             <div class="modal-background"></div>
-            <div id="modal-tarjeta" class="modal-card">
+            <div id="modal-tarjeta " class="modal-card">
                 <header class="modal-card-head">
-                    <h1 class="modal-card-title">¡Bienvenidas!</h1>
-
+                    <h1 class="modal-card-title">¡Juego terminado!</h1>
+                    <button id="cerrar-juego-terminado" class="delete" aria-label="close"></button>
                 </header>
-                <section id="modal-texto" class="modal-card-body">
-                    <p id="texto">En MatcheADAs tu objetivo es juntar tres o más ítems del mismo tipo, ya sea en fila o
-                        columna. Para
-                        eso,
-                        selecciona un ítem y a continuacion un ítem adyacente para intercambiarlos de lugar.
-                    </p>
-                    <p id="texto">Si se forma un grupo, esos ítems se eliminarán y ganarás puntos. ¡Sigue armando grupos
-                        de
-                        3 o más
-                        antes
-                        de que se acabe el tiempo!</p>
+                <section id="texto-juegoTerminado" class="modal-card-body">
+                    <p>Puntaje final: <span>000</span> </p>
                 </section>
-                <section id="modal-controles" class="modal-card-body ">
-                    <h2 class="modal-card-title">Controles</h2>
-                    <p>Click izquierdo: seleccion</p>
-                    <p>Enter o Espacio: seleccion</p>
-                    <p>Flechas o WASD: movimiento e intercambio</p>
-
-                </section>
-                <footer class="modal-card-foot is-justify-content-center">
-                    <button id="boton-jugar" class="button is-danger">A Jugar</button>
+                <footer class="modal-card-foot">
+                    <button id="nuevo-juego-partida-terminada" class="button is-danger">Nuevo Juego</button>
+                    <button id="reiniciar-juego-partida-terminada" class="button is-danger">Reiniciar</button>
                 </footer>
             </div>
         </div>
-    </div>
-    <!----------------------------------------------------- Inicio Modal Dificultades -->
 
-    <div id="contenedor-modal-dificultades">
-        <div id="modal-dificultades" class="modal is-flex-mobile is-hidden">
-            <div class="modal-background"></div>
-            <div id="modal-tarjeta" class="modal-card">
-                <header class="modal-card-head">
-                    <h1 class="modal-card-title">Nuevo Juego</h1>
+        <!-- FIN MODALES -->
 
-                </header>
-                <section id="modal-texto" class="modal-card-body">
-                    <p>Selecciona la dificultad</p>
-                </section>
-
-                <footer class="modal-card-foot is-justify-content-center">
-                    <div id="contenedor-boton-facil"><button id="facil"
-                            class="boton-dificultad button is-danger ml-4">Fácil</button></div>
-                    <div id="contenedor-boton-medio is-danger"> <button id="medio"
-                            class="boton-dificultad button is-danger ml-4">Medio</button></div>
-                    <div id="contenedor-boton-dicil"><button id="dificil"
-                            class="boton-dificultad button is-danger ml-4">Difícil</button></div>
-                </footer>
+        <!-- INCIO GRILLA -->
+        <section class="">
+            <div class="">
+                <h1 class="titulo-engatuzadas is-flex is-justify-content-center">EngatuzADAs</h1>
             </div>
-        </div>
-    </div>
 
-
-
-    <!-- -----------------------------Inicio Modal Juego terminado -->
-    <div class="modal-juegoTerminado modal is-danger">
-        <div class="modal-background"></div>
-        <div id="modal-tarjeta " class="modal-card">
-            <header class="modal-card-head">
-                <h1 class="modal-card-title">¡Juego terminado!</h1>
-                <button id="cerrar-juego-terminado" class="delete" aria-label="close"></button>
-            </header>
-            <section id="texto-juegoTerminado" class="modal-card-body">
-                <p>Puntaje final: <span>000</span> </p>
-            </section>
-            <footer class="modal-card-foot">
-                <button id="nuevo-juego-partida-terminada" class="button is-danger">Nuevo Juego</button>
-                <button id="reiniciar-juego-partida-terminada" class="button is-danger">Reiniciar</button>
-            </footer>
-        </div>
-    </div>
-
-    <!-- FIN MODALES -->
-
-    <!-- INCIO GRILLA -->
-    <section class="">
-        <div class="">
-            <h1 class="titulo-engatuzadas">EngatuzADAs</h1>
-        </div>
-
-        <div class="contenedor-combos-puntaje">
-            <div class="combos-puntaje">
-                <h3 class="combo">Combo <span> x1</span></h3>
-                <h3 class="puntos">Puntos: <span> 0</span></h3>
-                <div><i id="informacion" class="fas fa-info-circle button is-danger is-rounded is-light"></i></div>
-                <button class="button is-rounded is-light is-danger" id="reiniciar-juego"><i
-                        class="fas fa-redo"></i></button>
-                <button class="button is-rounded is-light is-danger" id="buscar-matches">Matches</button>
-                <button class="button is-rounded is-light is-danger" id="boton-vacios">Ver vacios</button>
-                <div class="button is-rounded is-light is-danger" id="tiempo">0:<span id="segundos">00</span></div>
+            <div class="contenedor-combos-puntaje is-flex is-11">
+                <div class="combos-puntaje">
+                    <h3 class="combo">Combo <span> x1</span></h3>
+                    <h3 class="puntos">Puntos: <span> 0</span></h3>
+                    <div><i id="informacion" class="fas fa-info-circle button is-danger is-rounded is-light"></i></div>
+                    <button class="button is-rounded is-light is-danger" id="reiniciar-juego"><i
+                            class="fas fa-redo"></i></button>
+                    <button class="button is-rounded is-light is-danger" id="buscar-matches">Matches</button>
+                    <button class="button is-rounded is-light is-danger" id="boton-vacios">Ver vacios</button>
+                    <div class="button is-rounded is-light is-danger" id="tiempo">0:<span id="segundos">00</span></div>
+                </div>
             </div>
-        </div>
 
 
-        <div class="contenedor-grilla">
-            <div class="grilla">
+            <div class="contenedor-grilla">
+                <div class="grilla">
+                </div>
             </div>
-        </div>
 
 
-    </section>
-
-
-
-
-
-
-
-
-    <!-- FIN GRILLA -->
-
-    <!-- boton para cambiar posiciones  -->
-    <!-- <button id="cambiar-posiciones"></button> -->
+        </section>
 
 
 
@@ -181,7 +175,19 @@
 
 
 
+        <!-- FIN GRILLA -->
 
+        <!-- boton para cambiar posiciones  -->
+        <!-- <button id="cambiar-posiciones"></button> -->
+
+
+
+
+
+
+
+
+    </div>
     <script src="main.js"></script>
 </body>
 

@@ -1,4 +1,7 @@
 body {
+  position: relative;
+}
+.background {
   width: 100vw;
   height: 100vh;
   background-image: url(img/Fondo-Arco-Iris.png);
@@ -6,12 +9,9 @@ body {
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
-  position: relative;
-  /* align-items: center; */
-  /* background-position-y: 50%; */
-  padding: 0 10px;
+  position: absolute;
+  /* padding: 0 10px; */
 }
-
 .grilla {
   position: relative;
   display: flex;
@@ -139,4 +139,8 @@ body {
   font-size: larger;
   font-weight: bold;
   color: white;
+  padding-right: 10px;
+}
+.container {
+  padding-top: 15px;
 }
