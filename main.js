@@ -490,7 +490,7 @@ const buscarMatches = (dimension) => {
 };
 
 const manejarIntersecciones = () => {
-  let total = matchesHorizontales.concat(matchesVerticales);
+  let total = matchesVerticales.concat(matchesHorizontales);
 
   let repetidos = [];
 
@@ -573,6 +573,10 @@ const obtenerDivMatcheado = (x, y) => {
 };
 // ------------------------
 //----------------------------- inicio sin bloques
+
+// paso los do a una funcion generica
+
+//cantidad de filas facil = 9 y llamar funcion
 const inicioSinBloquesFacil = () => {
   do {
     ocultarDificultades();
