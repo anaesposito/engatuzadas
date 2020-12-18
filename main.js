@@ -9,6 +9,12 @@ const contenedorBotonMedio = document.getElementById("contenedor-boton-medio");
 const contenedorBotonDificil = document.getElementById(
   "contenedor-boton-dificil"
 );
+const nuevoJuegoPartidaTerminada = document.querySelector(
+  "#nuevo-juego-partida-terminada"
+);
+const reiniciarPartidaTerminada = document.querySelector(
+  "#reiniciar-juego-partida-terminada"
+);
 const cerrarJuegoTerminado = document.querySelector("#cerrar-juego-terminado");
 const informacion = document.querySelector("#informacion");
 const modalJuegoTerminado = document.querySelector(".modal-juegoTerminado");
@@ -528,6 +534,19 @@ const jugar = (cantidadDeFilas) => {
   actualizarGrilla(cantidadDeFilas);
 };
 
+const reiniciandoJuego = () => {
+  iniciarReloj(iniciarCuentaRegresiva());
+  clickeable();
+  vaciarGrilla();
+  if (reiniciarJuego.classList.contains("facil")) {
+    jugar(cantidaDeFilasFacil);
+  } else if (reiniciarJuego.classList.contains("normal")) {
+    jugar(cantidadDeFilasNormal);
+  } else if (reiniciarJuego.classList.contains("dificil")) {
+    jugar(cantidadDeFilasDificil);
+  }
+};
+
 // ------------------Inicio botones Dificultad on Click-------------
 botonFacil.onclick = () => {
   reiniciarJuego.classList.add("facil");
@@ -546,16 +565,7 @@ botonDificil.onclick = () => {
 };
 
 reiniciarJuego.onclick = () => {
-  iniciarReloj(iniciarCuentaRegresiva());
-  clickeable();
-  vaciarGrilla();
-  if (reiniciarJuego.classList.contains("facil")) {
-    jugar(cantidaDeFilasFacil);
-  } else if (reiniciarJuego.classList.contains("normal")) {
-    jugar(cantidadDeFilasNormal);
-  } else if (reiniciarJuego.classList.contains("dificil")) {
-    jugar(cantidadDeFilasDificil);
-  }
+  reiniciandoJuego();
 };
 
 botonBuscarMatches.onclick = () => {
@@ -594,4 +604,13 @@ const actualizarGrilla = (cantidadDeFilas) => {
   buscarMatches(cantidadDeFilas);
   borrarMatches();
   llenarVacio();
+};
+
+nuevoJuegoPartidaTerminada.onclick = () => {
+  ocultarBienvenida();
+  mostrarDificultades();
+};
+
+reiniciarPartidaTerminada.onclick = () => {
+  reiniciandoJuego();
 };
