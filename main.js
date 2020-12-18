@@ -1,6 +1,6 @@
 const grilla = document.querySelector(".grilla");
 const botonFacil = document.getElementById("facil");
-const botonMedio = document.getElementById("medio");
+const botonNormal = document.getElementById("normal");
 const botonDificil = document.getElementById("dificil");
 const reiniciarJuego = document.getElementById("reiniciar-juego");
 const botonBuscarMatches = document.getElementById("buscar-matches");
@@ -11,21 +11,27 @@ const contenedorBotonDificil = document.getElementById(
 );
 const cerrarJuegoTerminado = document.querySelector("#cerrar-juego-terminado");
 const informacion = document.querySelector("#informacion");
-
+const modalJuegoTerminado = document.querySelector(".modal-juegoTerminado");
 const modalDificultad = document.querySelector("#modal-dificultades");
-
+const modalBienvenida = document.querySelector("#contenedor-modal-bienvenida");
+const AJugar = document.getElementById("boton-jugar");
+const botonCerrarDificultad = document.querySelector("#cerrar-dificultad");
 const cantidadDeImagenesDiferentes = 6;
 const tamanioImg = 50;
-
 const gatitosSeleccionados = document.querySelectorAll(".seleccionado");
 let gatitoGuardadoEnClickAnterior = "";
+const cantidaDeFilasFacil = 9;
+const cantidadDeFilasNormal = 8;
+const cantidadDeFilasDificil = 7;
+//----------------------------------------🔸TIMER EN MARCHA🔸
 
-// ----------------------- TIMER EN MARCHA
-const modalJuegoTerminado = document.querySelector(".modal-juegoTerminado");
 const mostrarJuegoTerminado = () => {
   modalJuegoTerminado.classList.toggle("is-active");
 };
-
+const iniciarCuentaRegresiva = () => {
+  const deadline = new Date(Date.parse(new Date()) + 30 * 1000);
+  return deadline;
+};
 const tiempoRestante = (tiempo) => {
   const total = Date.parse(tiempo) - Date.parse(new Date());
   const segundos = Math.floor((total / 1000) % 60);
@@ -46,7 +52,7 @@ const iniciarReloj = (tiempo) => {
     const t = tiempoRestante(tiempo);
 
     segundosSpan.innerHTML = ("0" + t.segundos).slice(-2);
-    console.log(t.segundos);
+    // console.log(t.segundos);
 
     if (t.total <= 0) {
       clearInterval(intervalo);
@@ -58,10 +64,7 @@ const iniciarReloj = (tiempo) => {
   const intervalo = setInterval(actualizarReloj, 1000);
 };
 
-const deadline = new Date(Date.parse(new Date()) + 30 * 1000);
-
-// ---------------------------------------fin de timer---------------------------------------
-
+//----------------------------------------🔸FIN DE TIMER🔸
 const removerImagenDelDiv = (divGatito) => {
   if (divGatito.firstElementChild) {
     let imagen = divGatito.firstElementChild;
@@ -357,83 +360,10 @@ const sonAdyacentes = (cuadradoUno, cuadradoDos) => {
   return false;
 };
 
-const ocultarBotones = () => {
-  botonFacil.classList.add("ocultar");
-  botonMedio.classList.add("ocultar");
-  botonDificil.classList.add("ocultar");
-};
-
 const vaciarGrilla = () => {
   grilla.innerHTML = "";
   matchesHorizontales = [];
   matchesVerticales = [];
-};
-// ------------------Inicio botones Dificultad on Click-------------
-botonFacil.onclick = () => {
-  reiniciarJuego.classList.add("facil");
-  // iniciarReloj(deadline);
-  inicioSinBloquesFacil();
-};
-
-botonMedio.onclick = () => {
-  reiniciarJuego.classList.add("medio");
-  // iniciarReloj(deadline);
-  inicioSinBloquesNormal();
-};
-
-botonDificil.onclick = () => {
-  reiniciarJuego.classList.add("dificil");
-  // iniciarReloj(deadline);
-  inicioSinBloquesDificil();
-};
-
-reiniciarJuego.onclick = () => {
-  clickeable();
-  vaciarGrilla();
-  if (reiniciarJuego.classList.contains("facil")) {
-    inicioSinBloquesFacil();
-  } else if (reiniciarJuego.classList.contains("medio")) {
-    inicioSinBloquesNormal();
-  } else if (reiniciarJuego.classList.contains("dificil")) {
-    inicioSinBloquesDificil();
-  }
-};
-
-botonBuscarMatches.onclick = () => {
-  buscarMatches(9);
-  borrarMatches();
-};
-
-// ------------------------------------INICIO MODALES
-const modalBienvenida = document.querySelector("#contenedor-modal-bienvenida");
-const AJugar = document.getElementById("boton-jugar");
-const botonCruz = document.querySelector(".delete");
-
-const botonCerrarDificultad = document.querySelector("#cerrar-dificultad");
-
-const ocultarBienvenida = () => {
-  modalBienvenida.classList.add("ocultar");
-};
-
-const mostrarDificultades = () => {
-  modalDificultad.classList.remove("is-hidden");
-  modalDificultad.classList.add("is-active");
-};
-const ocultarDificultades = () => {
-  modalDificultad.classList.add("is-hidden");
-  modalDificultad.classList.remove("is-active");
-};
-informacion.onclick = () => {
-  modalBienvenida.classList.remove("ocultar");
-};
-
-AJugar.onclick = () => {
-  ocultarBienvenida();
-  mostrarDificultades();
-};
-
-cerrarJuegoTerminado.onclick = () => {
-  modalJuegoTerminado.classList.remove("is-active");
 };
 
 // ------------------  FUNCIONES PARA BUSCAR MATCH EN BOTON ----
@@ -577,34 +507,15 @@ const obtenerDivMatcheado = (x, y) => {
 // paso los do a una funcion generica
 
 //cantidad de filas facil = 9 y llamar funcion
-const inicioSinBloquesFacil = () => {
+const jugar = (cantidadDeFilas) => {
+  iniciarReloj(iniciarCuentaRegresiva());
   do {
     ocultarDificultades();
     vaciarGrilla();
-    crearGrilla(9, 9);
-    crearGrillaHtml(9);
+    crearGrilla(cantidadDeFilas, cantidadDeFilas);
+    crearGrillaHtml(cantidadDeFilas);
     clickeable();
-  } while (buscarBloqueInicial(9));
-};
-
-const inicioSinBloquesNormal = () => {
-  do {
-    ocultarDificultades();
-    vaciarGrilla();
-    crearGrilla(8, 8);
-    crearGrillaHtml(8);
-    clickeable();
-  } while (buscarBloqueInicial(8));
-};
-
-const inicioSinBloquesDificil = () => {
-  do {
-    ocultarDificultades();
-    vaciarGrilla();
-    crearGrilla(7, 7);
-    crearGrillaHtml(7);
-    clickeable();
-  } while (buscarBloqueInicial(7));
+  } while (buscarBloqueInicial(cantidadDeFilas));
 };
 
 const agregarNuevaImagen = () => {
@@ -620,4 +531,64 @@ const agregarNuevaImagen = () => {
       listaDeGatitos[div.dataset.x][div.dataset.y] = gatito;
     }
   }
+};
+// ------------------Inicio botones Dificultad on Click-------------
+botonFacil.onclick = () => {
+  reiniciarJuego.classList.add("facil");
+  jugar(cantidaDeFilasFacil);
+};
+
+botonNormal.onclick = () => {
+  reiniciarJuego.classList.add("normal");
+  jugar(cantidadDeFilasNormal);
+};
+
+botonDificil.onclick = () => {
+  reiniciarJuego.classList.add("dificil");
+  jugar(cantidadDeFilasDificil);
+};
+
+reiniciarJuego.onclick = () => {
+  iniciarReloj(iniciarCuentaRegresiva());
+  clickeable();
+  vaciarGrilla();
+  if (reiniciarJuego.classList.contains("facil")) {
+    jugar(cantidaDeFilasFacil);
+  } else if (reiniciarJuego.classList.contains("normal")) {
+    jugar(cantidadDeFilasNormal);
+  } else if (reiniciarJuego.classList.contains("dificil")) {
+    jugar(cantidadDeFilasDificil);
+  }
+};
+
+botonBuscarMatches.onclick = () => {
+  buscarMatches(9);
+  borrarMatches();
+};
+
+// ------------------------------------INICIO MODALES
+
+const ocultarBienvenida = () => {
+  modalBienvenida.classList.add("ocultar");
+};
+
+const mostrarDificultades = () => {
+  modalDificultad.classList.remove("is-hidden");
+  modalDificultad.classList.add("is-active");
+};
+const ocultarDificultades = () => {
+  modalDificultad.classList.add("is-hidden");
+  modalDificultad.classList.remove("is-active");
+};
+informacion.onclick = () => {
+  modalBienvenida.classList.remove("ocultar");
+};
+
+AJugar.onclick = () => {
+  ocultarBienvenida();
+  mostrarDificultades();
+};
+
+cerrarJuegoTerminado.onclick = () => {
+  modalJuegoTerminado.classList.remove("is-active");
 };
