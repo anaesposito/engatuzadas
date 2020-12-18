@@ -58,9 +58,11 @@ const iniciarReloj = (tiempo) => {
       clearInterval(intervalo);
       mostrarJuegoTerminado();
     }
+    // return t.segundos;
   };
 
   actualizarReloj();
+
   const intervalo = setInterval(actualizarReloj, 1000);
 };
 
@@ -516,6 +518,7 @@ const jugar = (cantidadDeFilas) => {
     crearGrillaHtml(cantidadDeFilas);
     clickeable();
   } while (buscarBloqueInicial(cantidadDeFilas));
+  actualizarGrilla(cantidadDeFilas);
 };
 
 const agregarNuevaImagen = () => {
@@ -536,6 +539,7 @@ const agregarNuevaImagen = () => {
 botonFacil.onclick = () => {
   reiniciarJuego.classList.add("facil");
   jugar(cantidaDeFilasFacil);
+  // setInterval(actualizarGrilla(cantidaDeFilasFacil), 1000);
 };
 
 botonNormal.onclick = () => {
@@ -591,4 +595,10 @@ AJugar.onclick = () => {
 
 cerrarJuegoTerminado.onclick = () => {
   modalJuegoTerminado.classList.remove("is-active");
+};
+
+const actualizarGrilla = (cantidadDeFilas) => {
+  buscarMatches(cantidadDeFilas);
+  borrarMatches();
+  llenarVacio();
 };
