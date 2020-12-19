@@ -38,9 +38,9 @@ let anchoContenedorGrilla = "";
 let gatitoGuardadoEnClickAnterior = "";
 //----------------------------------------🔸INICIA DETECTOR DE DISPOSITIVO🔸
 const tamanioGrillaResponsive = () => {
-  const ventanaTamanioMobile = window.matchMedia("(max-width: 500px)");
+  const ventanaTamanioMobile = window.matchMedia("(max-width: 400px)");
   if (ventanaTamanioMobile.matches) {
-    tamanioGrilla = 380;
+    tamanioGrilla = 310;
   } else {
     tamanioGrilla = 470;
   }
@@ -346,11 +346,11 @@ const escucharClicks = (e) => {
         cruzarGatitos(gatitoGuardadoEnClickAnterior, gatitoClickeado);
 
         // FIJARME ESTO MA;ANA
-        // let gatitoReservado = gatitoGuardadoEnClickAnterior;
-        // if (buscarBloqueInicial(9) === false) {
-        //   intercambiarCuadrados(gatitoClickeado, gatitoReservado);
-        //   cruzarGatitos(gatitoReservado, gatitoClickeado);
-        // }
+        let gatitoReservado = gatitoGuardadoEnClickAnterior;
+        if (buscarBloqueInicial(9) === false) {
+          intercambiarCuadrados(gatitoClickeado, gatitoReservado);
+          cruzarGatitos(gatitoReservado, gatitoClickeado);
+        }
       } else {
         gatitoGuardadoEnClickAnterior = gatitoClickeado;
         gatitoClickeado.classList.add("seleccionado");
@@ -541,10 +541,10 @@ const borrarImgDeListaDeGatitos = (listaMatchesUnicos) => {
   }
 };
 
-const botonProbandoVacios = document.querySelector("#boton-vacios");
-botonProbandoVacios.onclick = () => {
-  llenarVacio();
-};
+// const botonProbandoVacios = document.querySelector("#boton-vacios");
+// botonProbandoVacios.onclick = () => {
+//   llenarVacio();
+// };
 
 // ---------------Obtener bloque de Matches
 
@@ -613,11 +613,33 @@ botonDificil.onclick = () => {
 reiniciarJuego.onclick = () => {
   reiniciandoJuego();
 };
-
-botonBuscarMatches.onclick = () => {
-  buscarMatches(9);
-  borrarMatches();
+informacion.onclick = () => {
+  modalBienvenida.classList.remove("ocultar");
 };
+
+AJugar.onclick = () => {
+  ocultarBienvenida();
+  mostrarDificultades();
+};
+
+cerrarJuegoTerminado.onclick = () => {
+  modalJuegoTerminado.classList.remove("is-active");
+};
+
+nuevoJuegoPartidaTerminada.onclick = () => {
+  modalJuegoTerminado.classList.remove("is-active");
+  ocultarBienvenida();
+  mostrarDificultades();
+};
+
+reiniciarPartidaTerminada.onclick = () => {
+  modalJuegoTerminado.classList.remove("is-active");
+  reiniciandoJuego();
+};
+// botonBuscarMatches.onclick = () => {
+//   buscarMatches(9);
+//   borrarMatches();
+// };
 
 // ------------------------------------INICIO MODALES
 
@@ -633,18 +655,6 @@ const ocultarDificultades = () => {
   modalDificultad.classList.add("is-hidden");
   modalDificultad.classList.remove("is-active");
 };
-informacion.onclick = () => {
-  modalBienvenida.classList.remove("ocultar");
-};
-
-AJugar.onclick = () => {
-  ocultarBienvenida();
-  mostrarDificultades();
-};
-
-cerrarJuegoTerminado.onclick = () => {
-  modalJuegoTerminado.classList.remove("is-active");
-};
 
 const actualizarGrilla = () => {
   buscarMatches(9);
@@ -653,16 +663,6 @@ const actualizarGrilla = () => {
   console.log("paso por aca");
 };
 
-nuevoJuegoPartidaTerminada.onclick = () => {
-  modalJuegoTerminado.classList.remove("is-active");
-  ocultarBienvenida();
-  mostrarDificultades();
-};
-
-reiniciarPartidaTerminada.onclick = () => {
-  modalJuegoTerminado.classList.remove("is-active");
-  reiniciandoJuego();
-};
 //  PRUEBA DE DEVOLVER SI NO HAY MATCH
 
 // windows onload

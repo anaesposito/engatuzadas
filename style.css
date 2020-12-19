@@ -97,7 +97,7 @@ body {
 /* ------------------------------------------ nueva estructura */
 .titulo-engatuzadas {
   font-family: pacifico;
-  font-size: 70px;
+  font-size: 90px;
   color: #d81b60;
   text-shadow: 1px 1px #fafafa, 1px -1px #fafafa, -1px -1px #fafafa,
     -1px 1px #fafafa;
@@ -106,11 +106,11 @@ body {
   margin-bottom: 20px;
 }
 
-.seccion-juego {
+/* .seccion-juego {
   width: 100%;
   display: flex;
   align-content: center;
-}
+} */
 
 .contenedor-combos-puntaje,
 .seccion-timer {
@@ -118,11 +118,9 @@ body {
   border: 3px solid white;
   padding: 10px;
   border-radius: 20px;
-  width: 700px;
   margin-top: 40px;
-
   margin-bottom: 40px;
-
+  justify-content: center;
   margin: auto;
 }
 .combos-puntaje {
@@ -147,4 +145,46 @@ body {
 }
 .container {
   padding-top: 15px;
+}
+
+/* // Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .titulo-engatuzadas {
+    font-size: 2.5rem;
+  }
+  .puntos,
+  .combo {
+    font-size: 1rem;
+  }
+
+  #reiniciar-juego,
+  #informacion,
+  #tiempo {
+    padding: 3px;
+    margin-right: 3px;
+  }
+  .contenedor-combos-puntaje {
+    max-width: 300px;
+  }
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .titulo-engatuzadas {
+    font-size: 2.5rem;
+  }
+  .puntos,
+  .combo {
+    font-size: 1rem;
+  }
+
+  #reiniciar-juego,
+  #informacion,
+  #tiempo {
+    padding: 3px;
+    margin-right: 3px;
+  }
+  .contenedor-combos-puntaje {
+    max-width: 300px;
+  }
 }
