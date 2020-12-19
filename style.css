@@ -13,15 +13,12 @@ body {
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
-  position: absolute;
-  /* padding: 0 10px; */
 }
 .grilla {
   position: relative;
   display: flex;
   align-content: center;
-  left: 10px;
-  top: 10px;
+  margin: auto;
   max-width: 500px;
   max-height: 500px;
 }
@@ -34,14 +31,17 @@ body {
   justify-content: center;
   align-items: center;
   position: absolute;
-  transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s,
-    right 0.4s, transform 0.2s;
+
   /* background-color: #ff5cb849; */
 }
 
+.efecto-con-movimiento {
+  transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s,
+    right 0.4s, transform 0.2s;
+}
 .contenedor-grilla {
   padding: 10px;
-  left: 100px;
+  margin: auto;
   border-radius: 20px;
   max-width: 500px;
   max-height: 500px;

@@ -1,4 +1,6 @@
 const grilla = document.querySelector(".grilla");
+const contenedorGrilla = document.querySelector(".contenedor-grilla");
+const reloj = document.getElementById("tiempo");
 const botonFacil = document.getElementById("facil");
 const botonNormal = document.getElementById("normal");
 const botonDificil = document.getElementById("dificil");
@@ -23,14 +25,30 @@ const modalBienvenida = document.querySelector("#contenedor-modal-bienvenida");
 const AJugar = document.getElementById("boton-jugar");
 const botonCerrarDificultad = document.querySelector("#cerrar-dificultad");
 const cantidadDeImagenesDiferentes = 6;
-const tamanioImg = 50;
 const gatitosSeleccionados = document.querySelectorAll(".seleccionado");
-let gatitoGuardadoEnClickAnterior = "";
 const cantidaDeFilasFacil = 9;
 const cantidadDeFilasNormal = 8;
 const cantidadDeFilasDificil = 7;
 let matchesHorizontales = [];
 let matchesVerticales = [];
+let listaDeGatitos = [];
+let anchoGrilla = "";
+let tamanioImg = "";
+let anchoContenedorGrilla = "";
+let gatitoGuardadoEnClickAnterior = "";
+//----------------------------------------🔸INICIA DETECTOR DE DISPOSITIVO🔸
+const tamanioGrillaResponsive = () => {
+  const ventanaTamanioMobile = window.matchMedia("(max-width: 500px)");
+  if (ventanaTamanioMobile.matches) {
+    tamanioGrilla = 380;
+  } else {
+    tamanioGrilla = 470;
+  }
+  return tamanioGrilla;
+};
+anchoGrilla = tamanioGrillaResponsive();
+anchoContenedorGrilla = tamanioGrillaResponsive();
+//----------------------------------------🔸FIN DETECTOR DE DISPOSITIVO🔸
 //----------------------------------------🔸TIMER EN MARCHA🔸
 
 const mostrarJuegoTerminado = () => {
@@ -51,31 +69,36 @@ const tiempoRestante = (tiempo) => {
   };
 };
 
+let tiempoTotal = "";
+let intervalo = "";
 const iniciarReloj = (tiempo) => {
-  const reloj = document.getElementById("tiempo");
-
   const segundosSpan = reloj.querySelector("#segundos");
-
   const actualizarReloj = () => {
     const t = tiempoRestante(tiempo);
 
     segundosSpan.innerHTML = ("0" + t.segundos).slice(-2);
-    // console.log(t.segundos);
-
+    tiempoTotal = t.segundos;
     if (t.total <= 0) {
       clearInterval(intervalo);
       mostrarJuegoTerminado();
     }
-    // return t.segundos;
+    return tiempoTotal;
   };
 
-  actualizarReloj();
+  if (reloj.classList.contains("reiniciado")) {
+    reloj.classList.remove("reiniciado");
+    clearInterval(intervalo);
 
-  const intervalo = setInterval(actualizarReloj, 1000);
+    iniciarReloj(iniciarCuentaRegresiva());
+  }
+
+  actualizarReloj();
+  intervalo = setInterval(actualizarReloj, 1000);
 };
 
 //----------------------------------------🔸FIN DE TIMER🔸
 const removerImagenDelDiv = (divGatito) => {
+  divGatito.classList.remove("efecto-con-movimiento");
   if (divGatito.firstElementChild) {
     let imagen = divGatito.firstElementChild;
     divGatito.removeChild(imagen);
@@ -86,7 +109,7 @@ const llenarVacio = () => {
   agregarNuevaImagen();
 };
 /**
- * Recorro la grila en busca de Matches Horizontales y los guardo
+ * Recorro la grilla en busca de Matches Horizontales y los guardo
  * en un array para hacer la comparacion final
  * @param {*src de la img} celdaActual
  * @param {*number x de la img} i
@@ -113,7 +136,7 @@ const compararHorizontal = (celdaActual, i, j, maximoIndice) => {
   return false; // si me excedí en los límites, no hubo match tampoco
 };
 /**
- * Recorro la grila en busca de Matches Verticales y los guardo
+ * Recorro la grilla en busca de Matches Verticales y los guardo
  * en un array para hacer la comparacion final
  * @param {*src de la img} celdaActual
  * @param {*number x de la img} i
@@ -173,6 +196,7 @@ const buscarBloqueInicial = (dimension) => {
   return matchesHorizontales || matchesVerticales;
 };
 //----------------------------------------🔸FIN BUSCAR BLOQUE INICIAL🔸
+//----------------------------------------🔸
 
 //----------------------------------------🔸INICIA CREAR IMG GATITO🔸
 /**
@@ -199,7 +223,9 @@ const obtenerImgGatito = () => {
 
 //----------------------------------------🔸INICIO CREACION DE GRILLA🔸
 
-let listaDeGatitos = [];
+const tamanioContenedor = (cantidadDeFilas) => {
+  tamanioImg = anchoGrilla / cantidadDeFilas;
+};
 
 const crearDivGatito = (x, y) => {
   const divGatito = document.createElement("div");
@@ -212,7 +238,7 @@ const crearDivGatito = (x, y) => {
   divGatito.appendChild(listaDeGatitos[x][y]);
   divGatito.style.top = `${x * tamanioImg}px`;
   divGatito.style.left = `${y * tamanioImg}px`;
-  divGatito.className = "contenedor-gatito";
+  divGatito.className = "contenedor-gatito efecto-con-movimiento";
 
   return divGatito;
 };
@@ -228,8 +254,10 @@ const crearArrayGatitos = (ancho, alto) => {
 };
 
 const crearGrillaHtml = () => {
-  grilla.style.width = `480px`;
-  grilla.style.height = `480px`;
+  grilla.style.width = `${anchoGrilla}px`;
+  grilla.style.height = `${anchoGrilla}px`;
+  contenedorGrilla.style.width = `${anchoContenedorGrilla + 20}px`;
+  contenedorGrilla.style.height = `${anchoContenedorGrilla + 20}px`;
 
   for (let i = 0; i < listaDeGatitos.length; i++) {
     for (let j = 0; j < listaDeGatitos[i].length; j++) {
@@ -315,6 +343,13 @@ const escucharClicks = (e) => {
       if (sonAdyacentes(gatitoGuardadoEnClickAnterior, gatitoClickeado)) {
         intercambiarCuadrados(gatitoGuardadoEnClickAnterior, gatitoClickeado);
         cruzarGatitos(gatitoGuardadoEnClickAnterior, gatitoClickeado);
+
+        // FIJARME ESTO MA;ANA
+        // let gatitoReservado = gatitoGuardadoEnClickAnterior;
+        // if (buscarBloqueInicial(9) === false) {
+        //   intercambiarCuadrados(gatitoClickeado, gatitoReservado);
+        //   cruzarGatitos(gatitoReservado, gatitoClickeado);
+        // }
       } else {
         gatitoGuardadoEnClickAnterior = gatitoClickeado;
         gatitoClickeado.classList.add("seleccionado");
@@ -521,21 +556,25 @@ const obtenerDivMatcheado = (x, y) => {
 };
 
 //----------------------------------------🔸INICIO CARGA DE INICIALIZACION DE PARTIDA
-
+/**
+ * Funcion que inicializa el juego
+ * @param {*number} cantidadDeFilas
+ */
 const jugar = (cantidadDeFilas) => {
   iniciarReloj(iniciarCuentaRegresiva());
   do {
     ocultarDificultades();
     vaciarGrilla();
+    tamanioContenedor(cantidadDeFilas);
     crearArrayGatitos(cantidadDeFilas, cantidadDeFilas);
     crearGrillaHtml(cantidadDeFilas);
     clickeable();
   } while (buscarBloqueInicial(cantidadDeFilas));
-  actualizarGrilla(cantidadDeFilas);
 };
 
 const reiniciandoJuego = () => {
-  iniciarReloj(iniciarCuentaRegresiva());
+  reloj.classList.add("reiniciado");
+  // iniciarReloj(iniciarCuentaRegresiva());
   clickeable();
   vaciarGrilla();
   if (reiniciarJuego.classList.contains("facil")) {
@@ -547,11 +586,17 @@ const reiniciandoJuego = () => {
   }
 };
 
+const mantenerActualizado = () => {
+  do {
+    actualizarGrilla(cantidaDeFilasFacil);
+    console.log(actualizarGrilla(cantidaDeFilasFacil));
+  } while (t.total <= 0);
+};
+
 // ------------------Inicio botones Dificultad on Click-------------
 botonFacil.onclick = () => {
   reiniciarJuego.classList.add("facil");
   jugar(cantidaDeFilasFacil);
-  // setInterval(actualizarGrilla(cantidaDeFilasFacil), 1000);
 };
 
 botonNormal.onclick = () => {
@@ -600,17 +645,23 @@ cerrarJuegoTerminado.onclick = () => {
   modalJuegoTerminado.classList.remove("is-active");
 };
 
-const actualizarGrilla = (cantidadDeFilas) => {
-  buscarMatches(cantidadDeFilas);
-  borrarMatches();
-  llenarVacio();
+const actualizarGrilla = () => {
+  buscarMatches(9);
+  setTimeout(borrarMatches, 800);
+  setTimeout(llenarVacio, 800);
+  console.log("paso por aca");
 };
 
 nuevoJuegoPartidaTerminada.onclick = () => {
+  modalJuegoTerminado.classList.remove("is-active");
   ocultarBienvenida();
   mostrarDificultades();
 };
 
 reiniciarPartidaTerminada.onclick = () => {
+  modalJuegoTerminado.classList.remove("is-active");
   reiniciandoJuego();
 };
+//  PRUEBA DE DEVOLVER SI NO HAY MATCH
+
+// windows onload
