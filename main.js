@@ -71,6 +71,7 @@ const tiempoRestante = (tiempo) => {
 
 let tiempoTotal = "";
 let intervalo = "";
+
 const iniciarReloj = (tiempo) => {
   const segundosSpan = reloj.querySelector("#segundos");
   const actualizarReloj = () => {
