@@ -93,7 +93,7 @@
                     <button id="cerrar-juego-terminado" class="delete" aria-label="close"></button>
                 </header>
                 <section id="texto-juegoTerminado" class="modal-card-body">
-                    <p>Puntaje final: <span>000</span> </p>
+                    <p>Puntaje final: <span id="puntaje-final">000</span> </p>
                 </section>
                 <footer class="modal-card-foot">
                     <button id="nuevo-juego-partida-terminada" class="button is-danger">Nuevo Juego</button>
@@ -113,12 +113,11 @@
             <div class="contenedor-combos-puntaje is-flex is-11">
                 <div class="combos-puntaje">
                     <h3 class="combo">Combo <span> x1</span></h3>
-                    <h3 class="puntos">Puntos: <span> 0</span></h3>
+                    <h3 class="puntos">Puntos: <span id="puntaje"> 0</span></h3>
                     <div><i id="informacion" class="fas fa-info-circle button is-danger is-rounded is-light"></i></div>
                     <button class="button is-rounded is-light is-danger" id="reiniciar-juego"><i
                             class="fas fa-redo"></i></button>
-                    <!-- <button class="button is-rounded is-light is-danger" id="buscar-matches">Matches</button>
-                    <button class="button is-rounded is-light is-danger" id="boton-vacios">Ver vacios</button> -->
+
                     <div class="button is-rounded is-light is-danger" id="tiempo">0:<span id="segundos">00</span></div>
                 </div>
             </div>
@@ -128,7 +127,8 @@
                 <div class="grilla">
                 </div>
             </div>
-
+            <button class="button is-rounded is-light is-danger" id="buscar-matches">Matches</button>
+            <button class="button is-rounded is-light is-danger" id="boton-vacios">Ver vacios</button>
 
         </section>
 

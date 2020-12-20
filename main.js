@@ -1,5 +1,7 @@
 const grilla = document.querySelector(".grilla");
 const contenedorGrilla = document.querySelector(".contenedor-grilla");
+const puntaje = document.querySelector("#puntaje");
+const puntajeFinal = document.querySelector("#puntaje-final");
 const reloj = document.getElementById("tiempo");
 const botonFacil = document.getElementById("facil");
 const botonNormal = document.getElementById("normal");
@@ -36,6 +38,7 @@ let anchoGrilla = "";
 let tamanioImg = "";
 let anchoContenedorGrilla = "";
 let gatitoGuardadoEnClickAnterior = "";
+let sumandoPuntaje = "";
 //----------------------------------------🔸INICIA DETECTOR DE DISPOSITIVO🔸
 const tamanioGrillaResponsive = () => {
   const ventanaTamanioMobile = window.matchMedia("(max-width: 400px)");
@@ -128,7 +131,6 @@ const compararHorizontal = (celdaActual, i, j, maximoIndice) => {
       matchesHorizontales.push([i, j]);
       matchesHorizontales.push([i, j + 1]);
       matchesHorizontales.push([i, j + 2]);
-
       return true;
     } else {
       return false;
@@ -185,6 +187,7 @@ const buscarBloqueInicial = (dimension) => {
       );
     }
   }
+
   //recorre cada item del array "sumatoria de horizontales" para chequear sin al menos uno es true  True
   let matchesHorizontales = comparacionesHorizontales.some((horizontal) => {
     return horizontal === true;
@@ -198,7 +201,29 @@ const buscarBloqueInicial = (dimension) => {
 };
 //----------------------------------------🔸FIN BUSCAR BLOQUE INICIAL🔸
 //----------------------------------------🔸
+let conteoHorizontal = 0;
+let conteoVertical = 0;
+let puntos = 100;
+const chequearComboHorizontal = () => {
+  conteoHorizontal = matchesHorizontales.length;
+  conteoHorizontal = conteoHorizontal * puntos;
 
+  return conteoHorizontal;
+};
+
+const chequearComboVertical = () => {
+  conteoVertical = matchesVerticales.length;
+  conteoVertical = conteoVertical * puntos;
+
+  return conteoVertical;
+};
+
+const sumarPuntaje = () => {
+  let previoPuntaje = Number(puntaje.innerHTML);
+  let sumaPuntaje = previoPuntaje + conteoVertical + conteoHorizontal;
+  puntaje.innerHTML = `${sumaPuntaje}`;
+  puntajeFinal.innerHTML = `${sumaPuntaje}`;
+};
 //----------------------------------------🔸INICIA CREAR IMG GATITO🔸
 /**
  * Devuelve un numero entero al azar entre 0 y la cantidad de modelos de imagenes
@@ -346,11 +371,11 @@ const escucharClicks = (e) => {
         cruzarGatitos(gatitoGuardadoEnClickAnterior, gatitoClickeado);
 
         // FIJARME ESTO MA;ANA
-        let gatitoReservado = gatitoGuardadoEnClickAnterior;
-        if (buscarBloqueInicial(9) === false) {
-          intercambiarCuadrados(gatitoClickeado, gatitoReservado);
-          cruzarGatitos(gatitoReservado, gatitoClickeado);
-        }
+        // let gatitoReservado = gatitoGuardadoEnClickAnterior;
+        // if (buscarBloqueInicial(9) === false) {
+        //   intercambiarCuadrados(gatitoClickeado, gatitoReservado);
+        //   cruzarGatitos(gatitoReservado, gatitoClickeado);
+        // }
       } else {
         gatitoGuardadoEnClickAnterior = gatitoClickeado;
         gatitoClickeado.classList.add("seleccionado");
@@ -403,6 +428,7 @@ const sonAdyacentes = (cuadradoUno, cuadradoDos) => {
 //----------------------------------------🔸FIN SON ADYACENTES
 const vaciarGrilla = () => {
   grilla.innerHTML = "";
+  puntaje.innerHTML = "0";
   matchesHorizontales = [];
   matchesVerticales = [];
 };
@@ -512,9 +538,6 @@ const agregarNuevaImagen = () => {
 
   for (let div of todosLosDivs) {
     if (div.firstChild === null) {
-      // console.log("div vacio", div.firstChild === null);
-      // div.appendChild(obtenerImgGatito());
-      // console.log(div);
       const gatito = obtenerImgGatito();
       div.appendChild(gatito);
       listaDeGatitos[div.dataset.x][div.dataset.y] = gatito;
@@ -529,7 +552,6 @@ const agregarNuevaImagen = () => {
 const borrarMatches = () => {
   let listaMatchesUnicos = manejarIntersecciones();
   removerImagenCelda(listaMatchesUnicos);
-
   borrarImgDeListaDeGatitos(listaMatchesUnicos);
   matchesHorizontales = [];
   matchesVerticales = [];
@@ -541,10 +563,11 @@ const borrarImgDeListaDeGatitos = (listaMatchesUnicos) => {
   }
 };
 
-// const botonProbandoVacios = document.querySelector("#boton-vacios");
-// botonProbandoVacios.onclick = () => {
-//   llenarVacio();
-// };
+const botonProbandoVacios = document.querySelector("#boton-vacios");
+botonProbandoVacios.onclick = () => {
+  llenarVacio();
+  sumarPuntaje();
+};
 
 // ---------------Obtener bloque de Matches
 
@@ -636,10 +659,15 @@ reiniciarPartidaTerminada.onclick = () => {
   modalJuegoTerminado.classList.remove("is-active");
   reiniciandoJuego();
 };
-// botonBuscarMatches.onclick = () => {
-//   buscarMatches(9);
-//   borrarMatches();
-// };
+botonBuscarMatches.onclick = () => {
+  // buscarMatches(9);
+  buscarMatches(9);
+  console.log(matchesHorizontales, matchesVerticales);
+  chequearComboHorizontal();
+  chequearComboVertical();
+  sumarPuntaje();
+  borrarMatches();
+};
 
 // ------------------------------------INICIO MODALES
 
@@ -662,7 +690,3 @@ const actualizarGrilla = () => {
   setTimeout(llenarVacio, 800);
   console.log("paso por aca");
 };
-
-//  PRUEBA DE DEVOLVER SI NO HAY MATCH
-
-// windows onload
