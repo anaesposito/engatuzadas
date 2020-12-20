@@ -200,6 +200,7 @@ const buscarBloqueInicial = (dimension) => {
   return matchesHorizontales || matchesVerticales;
 };
 //----------------------------------------🔸FIN BUSCAR BLOQUE INICIAL🔸
+
 //----------------------------------------🔸
 let conteoHorizontal = 0;
 let conteoVertical = 0;
@@ -368,14 +369,26 @@ const escucharClicks = (e) => {
 
       if (sonAdyacentes(gatitoGuardadoEnClickAnterior, gatitoClickeado)) {
         intercambiarCuadrados(gatitoGuardadoEnClickAnterior, gatitoClickeado);
-        cruzarGatitos(gatitoGuardadoEnClickAnterior, gatitoClickeado);
+        // cruzarGatitos(gatitoGuardadoEnClickAnterior, gatitoClickeado);
 
         // FIJARME ESTO MA;ANA
-        // let gatitoReservado = gatitoGuardadoEnClickAnterior;
-        // if (buscarBloqueInicial(9) === false) {
-        //   intercambiarCuadrados(gatitoClickeado, gatitoReservado);
-        //   cruzarGatitos(gatitoReservado, gatitoClickeado);
-        // }
+        let gatitoReservado = gatitoGuardadoEnClickAnterior;
+        if (buscarBloqueInicial(9)) {
+          setTimeout(borrarMatches, 400);
+          setTimeout(llenarVacio, 1000);
+
+          // intercambiarCuadrados(gatitoClickeado, gatitoReservado);
+          // cruzarGatitos(gatitoReservado, gatitoClickeado);
+        } else {
+          setTimeout(
+            () =>
+              intercambiarCuadrados(
+                gatitoClickeado,
+                gatitoGuardadoEnClickAnterior
+              ),
+            500
+          );
+        }
       } else {
         gatitoGuardadoEnClickAnterior = gatitoClickeado;
         gatitoClickeado.classList.add("seleccionado");
