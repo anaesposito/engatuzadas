@@ -225,6 +225,11 @@ const sumarPuntaje = () => {
   puntaje.innerHTML = `${sumaPuntaje}`;
   puntajeFinal.innerHTML = `${sumaPuntaje}`;
 };
+const totalizarPuntaje = () => {
+  chequearComboHorizontal();
+  chequearComboVertical();
+  sumarPuntaje();
+};
 //----------------------------------------🔸INICIA CREAR IMG GATITO🔸
 /**
  * Devuelve un numero entero al azar entre 0 y la cantidad de modelos de imagenes
@@ -345,7 +350,7 @@ const borrarSeleccion = (primerGato, segundoGato) => {
 };
 
 // a esta funcion hay q cambiarle el nombre
-const cruzarGatitos = (primerGato, segundoGato) => {
+const borrarMemoriaGatito = (primerGato, segundoGato) => {
   //llamo a esta funcion cuando se seleccionaron adyancentes!
   // la uso para cruzar los gatitos despues
   gatitoGuardadoEnClickAnterior = "";
@@ -369,16 +374,26 @@ const escucharClicks = (e) => {
 
       if (sonAdyacentes(gatitoGuardadoEnClickAnterior, gatitoClickeado)) {
         intercambiarCuadrados(gatitoGuardadoEnClickAnterior, gatitoClickeado);
-        // cruzarGatitos(gatitoGuardadoEnClickAnterior, gatitoClickeado);
+        // borrarMemoriaGatito(gatitoGuardadoEnClickAnterior, gatitoClickeado);
 
-        // FIJARME ESTO MA;ANA
-        let gatitoReservado = gatitoGuardadoEnClickAnterior;
         if (buscarBloqueInicial(9)) {
-          setTimeout(borrarMatches, 400);
-          setTimeout(llenarVacio, 1000);
+          let corriendoDepuracion = () => {
+            setTimeout(buscarMatches, 200);
+            setTimeout(totalizarPuntaje, 300);
+            setTimeout(borrarMatches, 500);
+            setTimeout(llenarVacio, 1000);
+            setTimeout(
+              () =>
+                borrarMemoriaGatito(
+                  gatitoClickeado,
+                  gatitoGuardadoEnClickAnterior
+                ),
 
-          // intercambiarCuadrados(gatitoClickeado, gatitoReservado);
-          // cruzarGatitos(gatitoReservado, gatitoClickeado);
+              500
+            );
+          };
+          corriendoDepuracion();
+          clearTimeout(corriendoDepuracion);
         } else {
           setTimeout(
             () =>
@@ -386,9 +401,11 @@ const escucharClicks = (e) => {
                 gatitoClickeado,
                 gatitoGuardadoEnClickAnterior
               ),
-            500
+
+            200
           );
         }
+        borrarMemoriaGatito(gatitoGuardadoEnClickAnterior, gatitoClickeado);
       } else {
         gatitoGuardadoEnClickAnterior = gatitoClickeado;
         gatitoClickeado.classList.add("seleccionado");
@@ -397,6 +414,7 @@ const escucharClicks = (e) => {
       gatitoGuardadoEnClickAnterior = gatitoClickeado;
     }
   }
+  // borrarMemoriaGatito(gatitoReservado, gatitoClickeado);
 };
 const esIgualAlPrimerGato = (gato) => {
   if (gatitoGuardadoEnClickAnterior) {
@@ -623,13 +641,6 @@ const reiniciandoJuego = () => {
   }
 };
 
-const mantenerActualizado = () => {
-  do {
-    actualizarGrilla(cantidaDeFilasFacil);
-    console.log(actualizarGrilla(cantidaDeFilasFacil));
-  } while (t.total <= 0);
-};
-
 // ------------------Inicio botones Dificultad on Click-------------
 botonFacil.onclick = () => {
   reiniciarJuego.classList.add("facil");
@@ -673,12 +684,8 @@ reiniciarPartidaTerminada.onclick = () => {
   reiniciandoJuego();
 };
 botonBuscarMatches.onclick = () => {
-  // buscarMatches(9);
   buscarMatches(9);
-  console.log(matchesHorizontales, matchesVerticales);
-  chequearComboHorizontal();
-  chequearComboVertical();
-  sumarPuntaje();
+
   borrarMatches();
 };
 
@@ -698,8 +705,7 @@ const ocultarDificultades = () => {
 };
 
 const actualizarGrilla = () => {
-  buscarMatches(9);
-  setTimeout(borrarMatches, 800);
-  setTimeout(llenarVacio, 800);
-  console.log("paso por aca");
+  setTimeout(totalizarPuntaje, 200);
+  setTimeout(borrarMatches, 500);
+  setTimeout(llenarVacio, 1000);
 };
