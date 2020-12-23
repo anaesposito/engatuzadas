@@ -82,19 +82,16 @@ const iniciarReloj = (tiempo) => {
 
     segundosSpan.innerHTML = ("0" + t.segundos).slice(-2);
     tiempoTotal = t.segundos;
+    if (reloj.classList.contains("reiniciado")) {
+      reloj.classList.remove("reiniciado");
+      clearInterval(intervalo);
+    }
     if (t.total <= 0) {
       clearInterval(intervalo);
       mostrarJuegoTerminado();
     }
     return tiempoTotal;
   };
-
-  if (reloj.classList.contains("reiniciado")) {
-    reloj.classList.remove("reiniciado");
-    clearInterval(intervalo);
-
-    iniciarReloj(iniciarCuentaRegresiva());
-  }
 
   actualizarReloj();
   intervalo = setInterval(actualizarReloj, 1000);
