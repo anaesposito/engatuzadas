@@ -349,13 +349,6 @@ const borrarSeleccion = (primerGato, segundoGato) => {
   segundoGato.classList.remove("seleccionado");
 };
 
-// a esta funcion hay q cambiarle el nombre
-const borrarMemoriaGatito = (primerGato, segundoGato) => {
-  //llamo a esta funcion cuando se seleccionaron adyancentes!
-  // la uso para cruzar los gatitos despues
-  gatitoGuardadoEnClickAnterior = "";
-};
-
 const escucharClicks = (e) => {
   let gatitoClickeado = e.target; // CLICK
 
@@ -394,7 +387,6 @@ const escucharClicks = (e) => {
       gatitoGuardadoEnClickAnterior = gatitoClickeado;
     }
   }
-  // borrarMemoriaGatito(gatitoReservado, gatitoClickeado);
 };
 const esIgualAlPrimerGato = (gato) => {
   if (gatitoGuardadoEnClickAnterior) {
