@@ -566,8 +566,6 @@ const borrarImgDeListaDeGatitos = (listaMatchesUnicos) => {
   }
 };
 
-// ---------------Obtener bloque de Matches
-
 /**
  * Devuelve un div en la coordenadas dadas.
  * @param {array} indices - Posición x y de la celda
@@ -600,20 +598,17 @@ const reiniciandoJuego = () => {
   vaciarGrilla();
   jugar(verificarDificultad());
 };
-
-// ------------------Inicio botones Dificultad on Click-------------
+//----------------------------------------🔸Inicio botones Dificultad on Click-------------
 botonFacil.onclick = () => {
   reiniciarJuego.classList.add("facil");
   jugar(cantidaDeFilasFacil);
   actualizarGrilla();
-  // do {
-  //   actualizarGrilla();
-  // } while (calcularTiempoRestante >= 0);
 };
 
 botonNormal.onclick = () => {
   reiniciarJuego.classList.add("normal");
   jugar(cantidadDeFilasNormal);
+  actualizarGrilla();
 };
 
 botonDificil.onclick = () => {
@@ -648,16 +643,8 @@ reiniciarPartidaTerminada.onclick = () => {
   modalJuegoTerminado.classList.remove("is-active");
   reiniciandoJuego();
 };
-// botonBuscarMatches.onclick = () => {
-//   buscarMatches(9);
-//   setTimeout(borrarMatches);
-// };
-// const botonProbandoVacios = document.querySelector("#boton-vacios");
-// botonProbandoVacios.onclick = () => {
-//   llenarVacio();
-//   sumarPuntaje();
-// };
-// ------------------------------------INICIO MODALES
+
+//----------------------------------------🔸INICIO MODALES
 
 const ocultarBienvenida = () => {
   modalBienvenida.classList.add("ocultar");
