@@ -1,8 +1,12 @@
 const grilla = document.querySelector(".grilla");
 const contenedorGrilla = document.querySelector(".contenedor-grilla");
 const puntaje = document.querySelector("#puntaje");
-const puntajeFinal = document.querySelector("#puntaje-final");
 const reloj = document.getElementById("tiempo");
+const duracionJuego = 30;
+let timerInicio = 0;
+const segundosSpan = reloj.querySelector("#segundos");
+const puntajeFinal = document.querySelector("#puntaje-final");
+
 const botonFacil = document.getElementById("facil");
 const botonNormal = document.getElementById("normal");
 const botonDificil = document.getElementById("dificil");
@@ -60,44 +64,40 @@ anchoContenedorGrilla = tamanioGrillaResponsive();
 const mostrarJuegoTerminado = () => {
   modalJuegoTerminado.classList.toggle("is-active");
 };
+
 const iniciarCuentaRegresiva = () => {
-  const deadline = new Date(Date.parse(new Date()) + 30 * 1000);
-  return deadline;
+  return new Date(Date.parse(new Date()) + duracionJuego * 1000);
 };
-const tiempoRestante = (tiempo) => {
-  const total = Date.parse(tiempo) - Date.parse(new Date());
-  const segundos = Math.floor((total / 1000) % 60);
 
-  return {
-    total,
+const calcularTiempoRestante = (deadline) => {
+  let total = Date.parse(deadline) - Date.parse(new Date());
+  let segundos = Math.floor((total / 1000) % 60);
 
-    segundos,
-  };
+  return segundos;
 };
 
 let tiempoTotal = "";
-let intervalo = "";
 
-const iniciarReloj = (tiempo) => {
-  const segundosSpan = reloj.querySelector("#segundos");
-  const actualizarReloj = () => {
-    const t = tiempoRestante(tiempo);
+const actualizarReloj = (deadline) => {
+  let tiempoRestante = calcularTiempoRestante(deadline);
 
-    segundosSpan.innerHTML = ("0" + t.segundos).slice(-2);
-    tiempoTotal = t.segundos;
-    if (reloj.classList.contains("reiniciado")) {
-      reloj.classList.remove("reiniciado");
-      clearInterval(intervalo);
-    }
-    if (t.total <= 0) {
-      clearInterval(intervalo);
-      mostrarJuegoTerminado();
-    }
-    return tiempoTotal;
-  };
+  segundosSpan.innerHTML = ("0" + tiempoRestante).slice(-2);
+  if (tiempoRestante <= 0) {
+    clearInterval(timerInicio);
+    mostrarJuegoTerminado();
+  }
+};
 
-  actualizarReloj();
-  intervalo = setInterval(actualizarReloj, 1000);
+const iniciarReloj = (deadline) => {
+  if (timerInicio != 0) {
+    clearInterval(timerInicio);
+  }
+
+  calcularTiempoRestante(deadline);
+
+  actualizarReloj(deadline);
+
+  timerInicio = setInterval(actualizarReloj, 1000, deadline);
 };
 
 //----------------------------------------🔸FIN DE TIMER🔸
@@ -445,7 +445,6 @@ const compararHorizontalEnBoton = (celdaActual, i, j, maximoIndice) => {
       celdaActual === celdaHorizontalMasUno && // busco tres iguales consecutivos
       celdaActual === celdaHorizontalMasDos
     ) {
-      // console.log("celda actual", listaDeGatitos[i][j].parentElement);
       matchesHorizontales.push([i, j]);
       matchesHorizontales.push([i, j + 1]);
       matchesHorizontales.push([i, j + 2]);
@@ -619,7 +618,7 @@ botonFacil.onclick = () => {
   jugar(cantidaDeFilasFacil);
   do {
     actualizarGrilla();
-  } while (tiempoRestante >= 0);
+  } while (calcularTiempoRestante >= 0);
 };
 
 botonNormal.onclick = () => {
