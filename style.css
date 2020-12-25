@@ -31,8 +31,6 @@ body {
   justify-content: center;
   align-items: center;
   position: absolute;
-
-  /* background-color: #ff5cb849; */
 }
 
 .efecto-con-movimiento {
@@ -106,12 +104,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* .seccion-juego {
-  width: 100%;
-  display: flex;
-  align-content: center;
-} */
-
 .contenedor-combos-puntaje,
 .seccion-timer {
   background-color: #d81b60;
@@ -146,6 +138,8 @@ body {
 .container {
   padding-top: 15px;
 }
+@media (max-width: 350px) {
+}
 
 /* // Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
@@ -160,14 +154,17 @@ body {
   #reiniciar-juego,
   #informacion,
   #tiempo {
-    padding: 3px;
+    padding: 5px;
     margin-right: 3px;
   }
   .contenedor-combos-puntaje {
-    max-width: 300px;
+    border-radius: 10px;
+  }
+
+  .contenedor-grilla {
+    border-radius: 10px;
   }
 }
-
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
   .titulo-engatuzadas {
@@ -181,10 +178,13 @@ body {
   #reiniciar-juego,
   #informacion,
   #tiempo {
-    padding: 3px;
+    padding: 5px;
     margin-right: 3px;
   }
   .contenedor-combos-puntaje {
-    max-width: 300px;
+    border-radius: 10px;
+  }
+  .contenedor-grilla {
+    border-radius: 10px;
   }
 }

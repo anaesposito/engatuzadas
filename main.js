@@ -41,8 +41,11 @@ let gatitoGuardadoEnClickAnterior = "";
 let sumandoPuntaje = "";
 //----------------------------------------🔸INICIA DETECTOR DE DISPOSITIVO🔸
 const tamanioGrillaResponsive = () => {
-  const ventanaTamanioMobile = window.matchMedia("(max-width: 400px)");
-  if (ventanaTamanioMobile.matches) {
+  const ventanaTamanioMobile = window.matchMedia("(max-width: 500px)");
+  const ventanaTamanioMobileSmall = window.matchMedia("(max-width: 350px)");
+  if (ventanaTamanioMobileSmall.matches) {
+    tamanioGrilla = 290;
+  } else if (ventanaTamanioMobile.matches) {
     tamanioGrilla = 310;
   } else {
     tamanioGrilla = 470;
@@ -371,38 +374,18 @@ const escucharClicks = (e) => {
 
       if (sonAdyacentes(gatitoGuardadoEnClickAnterior, gatitoClickeado)) {
         intercambiarCuadrados(gatitoGuardadoEnClickAnterior, gatitoClickeado);
-        // borrarMemoriaGatito(gatitoGuardadoEnClickAnterior, gatitoClickeado);
-
-        if (buscarBloqueInicial(9)) {
-          let corriendoDepuracion = () => {
-            setTimeout(buscarMatches, 200);
-            setTimeout(totalizarPuntaje, 300);
-            setTimeout(borrarMatches, 500);
-            setTimeout(llenarVacio, 1000);
+        let gatitoParaDevolver = gatitoGuardadoEnClickAnterior;
+        gatitoGuardadoEnClickAnterior = "";
+        if (buscarBloqueInicial(9) == false) {
+          let devolverGatito = () => {
             setTimeout(
-              () =>
-                borrarMemoriaGatito(
-                  gatitoClickeado,
-                  gatitoGuardadoEnClickAnterior
-                ),
-
-              500
+              () => intercambiarCuadrados(gatitoClickeado, gatitoParaDevolver),
+              200
             );
           };
-          corriendoDepuracion();
-          clearTimeout(corriendoDepuracion);
-        } else {
-          setTimeout(
-            () =>
-              intercambiarCuadrados(
-                gatitoClickeado,
-                gatitoGuardadoEnClickAnterior
-              ),
-
-            200
-          );
+          devolverGatito();
+          clearInterval(devolverGatito);
         }
-        borrarMemoriaGatito(gatitoGuardadoEnClickAnterior, gatitoClickeado);
       } else {
         gatitoGuardadoEnClickAnterior = gatitoClickeado;
         gatitoClickeado.classList.add("seleccionado");
@@ -642,6 +625,9 @@ const reiniciandoJuego = () => {
 botonFacil.onclick = () => {
   reiniciarJuego.classList.add("facil");
   jugar(cantidaDeFilasFacil);
+  do {
+    actualizarGrilla();
+  } while (tiempoRestante >= 0);
 };
 
 botonNormal.onclick = () => {
@@ -682,8 +668,7 @@ reiniciarPartidaTerminada.onclick = () => {
 };
 botonBuscarMatches.onclick = () => {
   buscarMatches(9);
-
-  borrarMatches();
+  setTimeout(borrarMatches);
 };
 
 // ------------------------------------INICIO MODALES
@@ -702,7 +687,8 @@ const ocultarDificultades = () => {
 };
 
 const actualizarGrilla = () => {
-  setTimeout(totalizarPuntaje, 200);
-  setTimeout(borrarMatches, 500);
-  setTimeout(llenarVacio, 1000);
+  setInterval(buscarBloqueInicial, 200, [9]);
+  setInterval(totalizarPuntaje, 200);
+  setInterval(borrarMatches, 500);
+  setInterval(llenarVacio, 1000);
 };
