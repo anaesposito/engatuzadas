@@ -349,7 +349,7 @@ const borrarSeleccion = (primerGato, segundoGato) => {
   segundoGato.classList.remove("seleccionado");
 };
 
-const escucharClicks = (e) => {
+const escucharClicks = (e, cantidadDeFilas) => {
   let gatitoClickeado = e.target; // CLICK
 
   if (gatitoClickeado.nodeName === "IMG") {
@@ -369,7 +369,8 @@ const escucharClicks = (e) => {
         intercambiarCuadrados(gatitoGuardadoEnClickAnterior, gatitoClickeado);
         let gatitoParaDevolver = gatitoGuardadoEnClickAnterior;
         gatitoGuardadoEnClickAnterior = "";
-        if (buscarBloqueInicial(9) == false) {
+
+        if (buscarBloqueInicial(verificarDificultad()) == false) {
           let devolverGatito = () => {
             setTimeout(
               () => intercambiarCuadrados(gatitoClickeado, gatitoParaDevolver),
@@ -565,12 +566,6 @@ const borrarImgDeListaDeGatitos = (listaMatchesUnicos) => {
   }
 };
 
-const botonProbandoVacios = document.querySelector("#boton-vacios");
-botonProbandoVacios.onclick = () => {
-  llenarVacio();
-  sumarPuntaje();
-};
-
 // ---------------Obtener bloque de Matches
 
 /**
@@ -603,22 +598,17 @@ const reiniciandoJuego = () => {
   // iniciarReloj(iniciarCuentaRegresiva());
   clickeable();
   vaciarGrilla();
-  if (reiniciarJuego.classList.contains("facil")) {
-    jugar(cantidaDeFilasFacil);
-  } else if (reiniciarJuego.classList.contains("normal")) {
-    jugar(cantidadDeFilasNormal);
-  } else if (reiniciarJuego.classList.contains("dificil")) {
-    jugar(cantidadDeFilasDificil);
-  }
+  jugar(verificarDificultad());
 };
 
 // ------------------Inicio botones Dificultad on Click-------------
 botonFacil.onclick = () => {
   reiniciarJuego.classList.add("facil");
   jugar(cantidaDeFilasFacil);
-  do {
-    actualizarGrilla();
-  } while (calcularTiempoRestante >= 0);
+  actualizarGrilla();
+  // do {
+  //   actualizarGrilla();
+  // } while (calcularTiempoRestante >= 0);
 };
 
 botonNormal.onclick = () => {
@@ -629,6 +619,7 @@ botonNormal.onclick = () => {
 botonDificil.onclick = () => {
   reiniciarJuego.classList.add("dificil");
   jugar(cantidadDeFilasDificil);
+  actualizarGrilla();
 };
 
 reiniciarJuego.onclick = () => {
@@ -657,11 +648,15 @@ reiniciarPartidaTerminada.onclick = () => {
   modalJuegoTerminado.classList.remove("is-active");
   reiniciandoJuego();
 };
-botonBuscarMatches.onclick = () => {
-  buscarMatches(9);
-  setTimeout(borrarMatches);
-};
-
+// botonBuscarMatches.onclick = () => {
+//   buscarMatches(9);
+//   setTimeout(borrarMatches);
+// };
+// const botonProbandoVacios = document.querySelector("#boton-vacios");
+// botonProbandoVacios.onclick = () => {
+//   llenarVacio();
+//   sumarPuntaje();
+// };
 // ------------------------------------INICIO MODALES
 
 const ocultarBienvenida = () => {
@@ -678,8 +673,20 @@ const ocultarDificultades = () => {
 };
 
 const actualizarGrilla = () => {
-  setInterval(buscarBloqueInicial, 200, [9]);
-  setInterval(totalizarPuntaje, 200);
+  setInterval(buscarBloqueInicial, 500, [9]);
+  setInterval(totalizarPuntaje, 500);
   setInterval(borrarMatches, 500);
-  setInterval(llenarVacio, 1000);
+  setInterval(llenarVacio, 500);
+};
+
+const verificarDificultad = () => {
+  if (reiniciarJuego.classList.contains("facil")) {
+    return (cantidadDeFilas = cantidaDeFilasFacil);
+  }
+  if (reiniciarJuego.classList.contains("normal")) {
+    return (cantidadDeFilas = cantidadDeFilasNormal);
+  }
+  if (reiniciarJuego.classList.contains("dificil")) {
+    return (cantidadDeFilas = cantidadDeFilasDificil);
+  }
 };
