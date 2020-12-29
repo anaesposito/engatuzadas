@@ -16,6 +16,7 @@ body {
   display: flex;
   justify-content: center;
 }
+/* -------------------------------- GRILLA */
 .grilla {
   position: relative;
   display: flex;
@@ -51,7 +52,7 @@ body {
   border: 3px solid white;
   border-radius: 40px;
 }
-
+/* -------------------------------- INICIO MODALES */
 #texto {
   margin: 0 25px 0 25px;
 }
@@ -94,7 +95,7 @@ body {
   display: none;
 }
 
-/* ------------------------------------------ nueva estructura */
+/* ------------------------------------------ Estructura */
 .titulo-engatuzadas {
   font-family: pacifico;
   font-size: 90px;
@@ -207,7 +208,7 @@ body {
   #informacion,
   #tiempo {
     padding: 5px;
-    margin-right: 3px;
+    margin: 10px;
   }
   .contenedor-combos-puntaje {
     border-radius: 10px;
