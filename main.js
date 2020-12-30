@@ -279,7 +279,7 @@ const crearArrayGatitos = (ancho, alto) => {
   for (let i = 0; i < ancho; i++) {
     listaDeGatitos[i] = [];
     for (let j = 0; j < alto; j++) {
-      listaDeGatitos[i][j] = obtenerImgGatito(i, j);
+      listaDeGatitos[i][j] = obtenerImgGatito();
     }
   }
   return listaDeGatitos;
