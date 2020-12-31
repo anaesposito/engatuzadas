@@ -349,7 +349,7 @@ const borrarSeleccion = (primerGato, segundoGato) => {
   segundoGato.classList.remove("seleccionado");
 };
 
-const escucharClicks = (e, cantidadDeFilas) => {
+const escucharClicks = (e) => {
   let gatitoClickeado = e.target; // CLICK
 
   if (gatitoClickeado.nodeName === "IMG") {
