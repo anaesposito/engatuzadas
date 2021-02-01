@@ -601,19 +601,19 @@ const reiniciandoJuego = () => {
 botonFacil.onclick = () => {
   reiniciarJuego.classList.add("facil");
   jugar(cantidaDeFilasFacil);
-  actualizarGrilla();
+  actualizarGrilla(cantidaDeFilasFacil);
 };
 
 botonNormal.onclick = () => {
   reiniciarJuego.classList.add("normal");
   jugar(cantidadDeFilasNormal);
-  actualizarGrilla();
+  actualizarGrilla(cantidadDeFilasNormal);
 };
 
 botonDificil.onclick = () => {
   reiniciarJuego.classList.add("dificil");
   jugar(cantidadDeFilasDificil);
-  actualizarGrilla();
+  actualizarGrilla(cantidadDeFilasDificil);
 };
 
 reiniciarJuego.onclick = () => {
@@ -658,8 +658,8 @@ const ocultarDificultades = () => {
   modalDificultad.classList.remove("is-active");
 };
 
-const actualizarGrilla = () => {
-  setInterval(buscarBloqueInicial, 500, [9]);
+const actualizarGrilla = (cantidadDeFilas) => {
+  setInterval(buscarBloqueInicial, 500, cantidadDeFilas);
   setInterval(totalizarPuntaje, 500);
   setInterval(borrarMatches, 500);
   setInterval(llenarVacio, 500);
