@@ -102,7 +102,6 @@ const iniciarReloj = (deadline) => {
 
 //----------------------------------------🔸FIN DE TIMER🔸
 const removerImagenDelDiv = (divGatito) => {
-  // divGatito.classList.remove("efecto-con-movimiento");
   if (divGatito.firstElementChild) {
     let imagen = divGatito.firstElementChild;
     divGatito.removeChild(imagen);
@@ -270,7 +269,7 @@ const crearDivGatito = (x, y) => {
   divGatito.appendChild(listaDeGatitos[x][y]);
   divGatito.style.top = `${x * tamanioImg}px`;
   divGatito.style.left = `${y * tamanioImg}px`;
-  divGatito.className = "contenedor-gatito efecto-con-movimiento";
+  divGatito.className = "contenedor-gatito";
 
   return divGatito;
 };
