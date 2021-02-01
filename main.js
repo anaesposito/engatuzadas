@@ -102,7 +102,7 @@ const iniciarReloj = (deadline) => {
 
 //----------------------------------------🔸FIN DE TIMER🔸
 const removerImagenDelDiv = (divGatito) => {
-  divGatito.classList.remove("efecto-con-movimiento");
+  // divGatito.classList.remove("efecto-con-movimiento");
   if (divGatito.firstElementChild) {
     let imagen = divGatito.firstElementChild;
     divGatito.removeChild(imagen);
@@ -592,7 +592,7 @@ const jugar = (cantidadDeFilas) => {
 };
 
 const reiniciandoJuego = () => {
-  reloj.classList.add("reiniciado");
+  reloj.classList.toggle("reiniciado");
   // iniciarReloj(iniciarCuentaRegresiva());
   clickeable();
   vaciarGrilla();

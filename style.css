@@ -34,12 +34,10 @@ body {
   justify-content: center;
   align-items: center;
   position: absolute;
-}
-
-.efecto-con-movimiento {
   transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s,
     right 0.4s, transform 0.2s;
 }
+
 .contenedor-grilla {
   padding: 10px;
   margin: auto;
