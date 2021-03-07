@@ -4,7 +4,7 @@ Juego de 3 en línea, realizado en HTML, CSS, JS
 
 EN PROGRESO
 
-[Publicado aquí](https://anaesposito.github.io/ada-shop/)
+[Publicado aquí](https://anaesposito.github.io/engatuuzadas/)
 
 [Contactame en LinkedIn](https://www.linkedin.com/in/ana-esposito-5a875184/)
 
@@ -20,7 +20,7 @@ Three in a row game, made with HTML, CSS, JS
 
 WORK IN PROGESS
 
-[Published here](https://anaesposito.github.io/ada-shop/)
+[Published here](https://anaesposito.github.io/engatuzadas/)
 
 [Contact me on LinkedIn](https://www.linkedin.com/in/ana-esposito-5a875184/)
 
